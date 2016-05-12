@@ -17,6 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: utf8
+  username: comapp
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
@@ -81,5 +82,5 @@ test:
 production:
   <<: *default
   database: comapp-web_production
-  username: comapp-web
+  #username: comapp-web
   password: <%= ENV['COMAPP-WEB_DATABASE_PASSWORD'] %>

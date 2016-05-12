@@ -29,19 +29,48 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# ActiveAdmin for cms interface
+gem 'activeadmin', github: 'activeadmin'
+# ActiveAdmin Polymorphic support
+# gem 'activeadmin_polymorphic'
+# Devise for User Credential Managment
+gem 'devise'
+# Use pry for console & debug
+# pry debug supoport
+gem 'pry-rails', '~> 0.3.4'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-end
-
-group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
+  # bye shit
+  gem 'pry-byebug'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
 
+group :test do
+  # Rspec
+  gem 'rspec-rails', '~> 3.0'
+
+  # Model Unit Validations
+  gem 'shoulda-matchers', '~> 3.1'
+
+  # Instance Factories
+  gem 'factory_girl_rails', '~> 4.7.0'
+
+  # clean db for every example
+  gem 'database_cleaner', '~> 1.5.1'
+
+  # capybara for integration tests
+  gem 'capybara', '~> 2.7.0'
+  # baaaaaaaaaaal gem 'capybara-webkit'
+
+  # enable mocks within context examples
+  gem 'webmock', '~> 1.24.3'
+
+  # enable request mocks via cassets
+  gem 'vcr'
+end
