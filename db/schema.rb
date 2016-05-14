@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20160511225832) do
   add_index "survey_fields", ["survey_id"], name: "index_survey_fields_on_survey_id", using: :btree
 
   create_table "surveys", force: :cascade do |t|
+    t.integer  "zone_id",                     null: false
     t.boolean  "is_active",   default: false, null: false
     t.string   "name",                        null: false
     t.string   "description"
@@ -83,8 +84,12 @@ ActiveRecord::Schema.define(version: 20160511225832) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_index "surveys", ["zone_id"], name: "index_surveys_on_zone_id", using: :btree
+
   create_table "zones", force: :cascade do |t|
     t.string   "name",       null: false
+    t.float    "lat",        null: false
+    t.float    "lng",        null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -92,4 +97,5 @@ ActiveRecord::Schema.define(version: 20160511225832) do
   add_foreign_key "survey_field_options", "survey_fields", on_update: :cascade, on_delete: :cascade
   add_foreign_key "survey_field_validations", "survey_fields", on_update: :cascade, on_delete: :cascade
   add_foreign_key "survey_fields", "surveys", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "surveys", "zones", on_update: :cascade, on_delete: :cascade
 end

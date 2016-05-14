@@ -6,8 +6,8 @@ es:
       call_to_action: "Para agregar secciones edite 'app/admin/dashboard.rb'"
     admin_users:
       title: Usuarios
-    campaign:
-      title: Campaña
+    zones:
+      title: Lugares
     view: "Ver"
     edit: "Editar"
     delete: "Eliminar"
