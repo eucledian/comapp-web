@@ -8,6 +8,8 @@ es:
       title: Usuarios
     zones:
       title: Lugares
+    surveys:
+      title: Encuestas
     view: "Ver"
     edit: "Editar"
     delete: "Eliminar"

@@ -1,15 +1,25 @@
 ActiveAdmin.register Zone do
 
+  # menu
   menu label: I18n.t('active_admin.zones.title')
 
+  # strong parameters
   permit_params :name, :lat, :lng
 
+  # index
   index download_links: false do
-    id_column
     column :name
     column :lat
     column :lng
     actions
+  end
+
+  # sidebar
+  sidebar 'Detalles', only: [:show] do
+    ul do
+      li link_to I18n.t('active_admin.surveys.title'),
+        admin_zone_surveys_path(zone)
+    end
   end
 
   # show
@@ -22,8 +32,9 @@ ActiveAdmin.register Zone do
      end
    end
 
+   # form
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs 'Detalles' do
       f.input :name
       f.input :lat
       f.input :lng
