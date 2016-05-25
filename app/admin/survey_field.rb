@@ -3,11 +3,21 @@ ActiveAdmin.register SurveyField do
   # associations
   belongs_to :survey
 
+  #config.sort_order = 'position'
+  sortable sorting_attribute: :position
+
   # strong parameters
   permit_params do
-    permitted = :name, :position, :data_type, :identity
+    permitted = :name, :data_type, :identity, :position
     permitted << :survey_id if params[:action] == 'create'
     permitted
+  end
+
+  index(download_links: false, as: :sortable) do |el|
+    label :name
+    #label :data_type
+    #label :identity
+    actions
   end
 
   # sidebar
@@ -27,9 +37,8 @@ ActiveAdmin.register SurveyField do
         f.input :survey_id, as: :hidden, input_html: { value: survey.id }
       end
       f.input :name
-      f.input :position
-      f.input :data_type
-      f.input :identity
+      f.input :data_type, as: :select, collection: SurveyField.data_types
+      f.input :identity, as: :select, collection: SurveyField.identities
     end
     f.actions
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511225832) do
+ActiveRecord::Schema.define(version: 20160525080323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,50 @@ ActiveRecord::Schema.define(version: 20160511225832) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "app_user_markers", force: :cascade do |t|
+    t.integer  "app_user_id", null: false
+    t.integer  "marker_id",   null: false
+    t.integer  "zone_id",     null: false
+    t.float    "lat",         null: false
+    t.float    "lng",         null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "app_user_markers", ["app_user_id"], name: "index_app_user_markers_on_app_user_id", using: :btree
+  add_index "app_user_markers", ["marker_id"], name: "index_app_user_markers_on_marker_id", using: :btree
+  add_index "app_user_markers", ["zone_id"], name: "index_app_user_markers_on_zone_id", using: :btree
+
+  create_table "app_user_survey_responses", force: :cascade do |t|
+    t.integer  "app_user_survey_id", null: false
+    t.integer  "survey_field_id",    null: false
+    t.text     "response",           null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "app_user_survey_responses", ["app_user_survey_id"], name: "index_app_user_survey_responses_on_app_user_survey_id", using: :btree
+  add_index "app_user_survey_responses", ["survey_field_id"], name: "index_app_user_survey_responses_on_survey_field_id", using: :btree
+
+  create_table "app_user_surveys", force: :cascade do |t|
+    t.integer  "app_user_id", null: false
+    t.integer  "survey_id",   null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "app_user_surveys", ["app_user_id"], name: "index_app_user_surveys_on_app_user_id", using: :btree
+  add_index "app_user_surveys", ["survey_id"], name: "index_app_user_surveys_on_survey_id", using: :btree
+
+  create_table "app_users", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "last_names", null: false
+    t.string   "mail",       null: false
+    t.string   "password",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "markers", force: :cascade do |t|
     t.string   "name",       null: false
@@ -94,6 +138,13 @@ ActiveRecord::Schema.define(version: 20160511225832) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "app_user_markers", "app_users", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "app_user_markers", "markers", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "app_user_markers", "zones", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "app_user_survey_responses", "app_user_surveys", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "app_user_survey_responses", "survey_fields", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "app_user_surveys", "app_users", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "app_user_surveys", "surveys", on_update: :cascade, on_delete: :cascade
   add_foreign_key "survey_field_options", "survey_fields", on_update: :cascade, on_delete: :cascade
   add_foreign_key "survey_field_validations", "survey_fields", on_update: :cascade, on_delete: :cascade
   add_foreign_key "survey_fields", "surveys", on_update: :cascade, on_delete: :cascade

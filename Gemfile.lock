@@ -39,6 +39,10 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_admin-sortable_tree (0.2.1)
+      activeadmin (>= 0.6)
+      jquery-ui-rails (~> 5.0)
+      rails (>= 3.2)
     activejob (4.2.6)
       activesupport (= 4.2.6)
       globalid (>= 0.3.0)
@@ -55,6 +59,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_list (0.7.4)
+      activerecord (>= 3.0)
     addressable (2.4.0)
     arbre (1.0.3)
       activesupport (>= 3.0.0)
@@ -260,7 +266,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_admin-sortable_tree
   activeadmin!
+  acts_as_list
   capybara (~> 2.7.0)
   coffee-rails (~> 4.1.0)
   database_cleaner (~> 1.5.1)
@@ -284,4 +292,4 @@ DEPENDENCIES
   webmock (~> 1.24.3)
 
 BUNDLED WITH
-   1.11.2
+   1.12.1

@@ -33,6 +33,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'activeadmin', github: 'activeadmin'
 # ActiveAdmin Polymorphic support
 # gem 'activeadmin_polymorphic'
+gem 'acts_as_list'
+# gem 'active_admin-acts_as_list'
+gem 'active_admin-sortable_tree'
 # Devise for User Credential Managment
 gem 'devise'
 # Use pry for console & debug
