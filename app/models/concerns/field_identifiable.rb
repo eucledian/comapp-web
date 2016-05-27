@@ -9,7 +9,7 @@ module FieldIdentifiable
 
   # modules
   module Identity
-    LBase = 'app.model.field.identity'
+    LBase = 'survey_field.identity'
     Text = 0
     Textarea = 1
     Checkbox = 2

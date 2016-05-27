@@ -31,13 +31,18 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # ActiveAdmin for cms interface
 gem 'activeadmin', github: 'activeadmin'
-# ActiveAdmin Polymorphic support
-# gem 'activeadmin_polymorphic'
+# ActiveAdmin Skin
+gem 'active_skin'
+# Acts as List
 gem 'acts_as_list'
 # gem 'active_admin-acts_as_list'
 gem 'active_admin-sortable_tree'
 # Devise for User Credential Managment
 gem 'devise'
+# CanCanCan
+gem 'cancancan', '~> 1.10'
+# Paperclip file uploader
+gem 'paperclip'
 # Use pry for console & debug
 # pry debug supoport
 gem 'pry-rails', '~> 0.3.4'

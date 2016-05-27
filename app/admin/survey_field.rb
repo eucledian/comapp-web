@@ -1,5 +1,8 @@
 ActiveAdmin.register SurveyField do
 
+  # menu
+  menu label: I18n.t('activerecord.models.survey_field.one')
+
   # associations
   belongs_to :survey
 

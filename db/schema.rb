@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160525080323) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
@@ -81,10 +82,13 @@ ActiveRecord::Schema.define(version: 20160525080323) do
   end
 
   create_table "markers", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "extension"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",              null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   create_table "survey_field_options", force: :cascade do |t|
@@ -99,8 +103,8 @@ ActiveRecord::Schema.define(version: 20160525080323) do
 
   create_table "survey_field_validations", force: :cascade do |t|
     t.integer  "survey_field_id", null: false
-    t.string   "name",            null: false
-    t.text     "option_value",    null: false
+    t.integer  "identity",        null: false
+    t.text     "validation_args"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

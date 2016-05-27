@@ -10,29 +10,37 @@ es:
       title: Lugares
     surveys:
       title: Encuestas
-    view: "Ver"
-    edit: "Editar"
-    delete: "Eliminar"
+    survey_fields:
+      title: Campos
+    survey_field_validations:
+      title: Validaciones
+    survey_field_options:
+      title: Opciones
+    app_users:
+      title: Usuarios App
+    view: Ver
+    edit: Editar
+    delete: Eliminar
     delete_confirmation: "¿Está seguro de que quiere eliminar esto?"
     new_model: "Añadir %{model}"
     edit_model: "Editar %{model}"
     delete_model: "Eliminar %{model}"
     details: "Detalles de %{model}"
-    cancel: "Cancelar"
+    cancel: Cancelar
     empty: "Vacío"
-    previous: "Anterior"
-    next: "Siguiente"
+    previous: Anterior
+    next: Siguiente
     download: "Descargar:"
     has_many_new: "Añadir %{model}"
-    has_many_delete: "Eliminar"
-    has_many_remove: "Quitar"
+    has_many_delete: Eliminar
+    has_many_remove: Quitar
     filters:
       buttons:
-        filter: "Filtrar"
-        clear: "Quitar Filtros"
+        filter: Filtrar
+        clear: Quitar Filtros
       predicates:
-        contains: "Contiene"
-        equals: "Igual a"
+        contains: Contiene
+        equals: Igual a
         starts_with: "Empieza con"
         ends_with: "Termina con"
         greater_than: "Mayor que"
@@ -43,7 +51,7 @@ es:
       no_current_filters: "Ninguno"
     status_tag:
       "yes": "Sí"
-      "no": "No"
+      "no": No
     main_content: "Por favor implemente %{model}#main_content para mostrar contenido."
     logout: "Salir"
     powered_by: "&copy; 2016 - Eucledian"
@@ -78,16 +86,16 @@ es:
       labels:
         destroy: Borrar
     comments:
-      created_at: "Fecha de creación"
-      resource_type: "Tipo de recurso"
-      author_type: "Tipo de autor"
-      body: "Cuerpo"
-      author: "Autor"
-      title: "Comentario"
-      add: "Comentar"
+      created_at: Fecha de creación
+      resource_type: Tipo de recurso
+      author_type: Tipo de autor
+      body: Cuerpo
+      author: Autor
+      title: Comentario
+      add: Comentar
       delete: "Borrar Comentario"
       delete_confirmation: "¿Está seguro que desea borrar este comentario?"
-      resource: "Recurso"
+      resource: Recurso
       no_comments_yet: "No hay comentarios aún."
       author_missing: "Anónimo"
       title_content: "Comentarios (%{count})"

@@ -1,20 +1,16 @@
 ActiveAdmin.register Marker do
 
-  # strong parameters
-  permit_params :name
+  # menu
+  menu label: I18n.t('activerecord.models.marker.one')
 
-  # sidebar
-  sidebar 'Detalles', only: [:show] do
-    ul do
-      #li link_to I18n.t('active_admin.survey_fields.title'),
-        #admin_survey_survey_fields_path(survey)
-    end
-  end
+  # strong parameters
+  permit_params :name, :icon
 
   # form
   form do |f|
     f.inputs 'Detalles' do
       f.input :name
+      f.input :icon, as: :file, required: true
     end
     f.actions
   end

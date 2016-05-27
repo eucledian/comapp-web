@@ -20,7 +20,7 @@ module Validatable
   end
 
   module ValidationIdentity
-    LBase = 'app.model.field_validation.identity'
+    LBase = 'survey_field_validation.identity'
     ArgsLBase = "#{LBase}.args"
     Presence = 0
     Length = 1

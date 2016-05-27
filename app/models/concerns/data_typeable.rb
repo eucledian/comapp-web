@@ -9,7 +9,7 @@ module DataTypeable
   extend ActiveSupport::Concern
 
   module DataType
-    LBase = 'app.model.field.data_type'
+    LBase = 'survey_field.data_type'
     String = 0
     Integer = 1
     Float = 2

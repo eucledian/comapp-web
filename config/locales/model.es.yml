@@ -1,0 +1,105 @@
+es:
+  survey_field:
+    identity:
+      text: Línea de texto
+      textarea: Área de texto
+      checkbox: Checkbox
+      radio: Radio
+      select: Dropdown
+      matrix: Tabla
+      catalog: Cat&aacute;logo
+      file: Archivo
+    data_type:
+      string: Cadena
+      integer: Enteros
+      float: Decimales
+      date: Fecha
+      date_time: Fecha y Hora
+      raw_date: Fecha sin Formato
+      place: Autocompleta
+  survey_field_validation:
+    identity:
+      presence: Presencia
+      length: Longitud
+      format: Formato
+      numericality: Numericalidad
+      inclusion: Inclusión
+      exclusion: Exclusión
+      uniqueness: Unicidad
+      format: Formato
+      confirmation: Confirmación
+      args:
+        minimum: Mínimo
+        maximum: Máximo
+        is: Exactamente
+        only_integer: 'Solo entero'
+        greater_than: 'Mayor que'
+        greater_than_or_equal_to: 'Mayor que o igual a'
+        equal_to: 'Igual a'
+        less_than: 'Menor que'
+        less_than_or_equal_to: 'Menor que o igual a'
+        odd: 'Par'
+        even: 'Impar'
+        in: 'Valores'
+        scope: 'Referencia'
+        with: 'Formato'
+  activerecord:
+    models:
+      zone:
+        one: Lugar
+        other: Lugares
+      admin_user:
+        one: Usuario
+        other: Usuarios
+      survey:
+        one: Encuesta
+        other: Encuestas
+      survey_field:
+        one: Campo
+        other: Campos
+      survey_field_option:
+        one: Opción
+        other: Opciones
+      survey_field_validation:
+        one: Validación
+        other: Validaciones
+      app_user:
+        one: Usuario App
+        other: Usuarios App
+      marker:
+        one: Marcador
+        other: Marcadores
+    attributes:
+      shared_attributes: &shared_attributes
+        email: Correo
+        name: Nombre
+        created_at: Fecha Creación
+        updated_at: Fecha Edición
+        phone: Telefono
+        user: Usuario
+        comments: Comentarios
+        survey_field_id: Campo
+      admin_user:
+        <<: *shared_attributes
+        last_names: Apellidos
+        birthdate: Fecha de Nacimiento
+        last_sign_in_at: 'Último Inicio de Sesión'
+        current_sign_in_at: 'Inicio de Sesión'
+        sign_in_count: 'Num de sesiones iniciadas'
+        role: Rol
+      marker:
+        <<: *shared_attributes
+      survey:
+        <<: *shared_attributes
+      survey_field:
+        <<: *shared_attributes
+        survey_id: Encuesta
+        position: Orden
+        data_type: Tipo de dato
+        identity: Tipo de campo
+      survey_field_option:
+        <<: *shared_attributes
+        option_value: Valor
+      survey_field_validation:
+        <<: *shared_attributes
+        identity: Tipo

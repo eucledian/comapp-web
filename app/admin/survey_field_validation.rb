@@ -12,12 +12,13 @@ ActiveAdmin.register SurveyFieldValidation do
 
   # form
   form do |f|
+    render partial: 'action', locals: { element: f.object, klass: SurveyFieldValidation }
     f.inputs 'Detalles' do
       if f.object.new_record?
         f.input :survey_field_id, as: :hidden, input_html: { value: survey_field.id }
       end
-      f.input :identity
-      f.input :validation_args
+      f.input :identity, as: :select, collection: SurveyFieldValidation.identities
+      f.input :validation_args, as: :hidden
     end
     f.actions
   end

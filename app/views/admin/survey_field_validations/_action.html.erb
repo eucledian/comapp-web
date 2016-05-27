@@ -1,0 +1,25 @@
+<script type="text/javascript">
+(function(){
+  $(function(){
+    var action = {};
+    $.extend(action, {
+      container: null,
+      validations: <%= klass.json_identities %>,
+      data_types: <%= klass.json_data_types %>,
+      element: <%= @element.to_json.html_safe %>,
+      identity_field: null,
+      init: function(){
+        this.initContainer();
+        this.initIdentityField();
+      },
+      initContainer: function(){
+        this.container = $('form.survey_field_validation');
+      },
+      initIdentityField: function(){
+        
+      }
+    });
+    action.init();
+  });
+})(jQuery);
+</script>

@@ -1,8 +1,10 @@
 class Marker < ActiveRecord::Base
 
+  # attachment
+  has_attached_file :icon, styles: { medium: "300x300>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :icon, content_type: /\Aimage\/.*\Z/
+
   # validations
-  validates :name, presence: true
-  validates :name, length: { in: 2..100 }
-  validates :extension, length: { in: 2..10 }, allow_nil: true
+  validates :name, length: { in: 2..100 }, presence: true
 
 end
