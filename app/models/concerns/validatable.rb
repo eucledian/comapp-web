@@ -178,6 +178,16 @@ module Validatable
         }
       }
     }
+
+    def self.param_keys
+      list = []
+      List.each do |k, el|
+        el[:args].each do |ak, av|
+          list << ak
+        end
+      end
+      list
+    end
     def self.keys
       @@keys ||= List.keys
     end
@@ -232,6 +242,20 @@ module Validatable
     def valid?
       val = true
       self.errors = {}
+      if args.any?
+        no_args = true
+        data.each do |k, v|
+          if v.present?
+            no_args = false
+            break
+          end
+        end
+        if no_args
+          first_arg = args.values.first
+          self.errors[first_arg.key] = ['Selecciona al menos uno']
+          val = false
+        end
+      end
       self.args.each do |k, el|
         el_valid = el.valid?
         val = val && el_valid
@@ -405,7 +429,7 @@ module Validatable
 
     def validate_validation_errors
       if self.v_args.present? && !self.v_args.valid?
-        self.errors.add(:validation_args, self.validation_args.errors)
+        self.errors.add(:validation_args, self.v_args.errors)
       end
     end
 
@@ -419,7 +443,5 @@ module Validatable
         write_attribute(:validation_args, value)
       end
     end
-
   end
-
 end

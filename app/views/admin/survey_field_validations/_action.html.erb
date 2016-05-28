@@ -1,3 +1,13 @@
+<%
+  survey_params = nil
+  tmp_params = nil
+  if params[:survey_field_validation].present?
+    tmp_params = params[:survey_field_validation]
+    if tmp_params[:validation_args].present?
+      survey_params = tmp_params[:validation_args]
+    end
+  end
+%>
 <script type="text/javascript">
 (function($){
   $(function(){
@@ -9,6 +19,7 @@
       dataTypes: <%= klass.json_data_types %>,
       element: <%= form.object.to_json.html_safe %>,
       errors: <%= form.object.errors.to_json.html_safe %>,
+      params: <%= survey_params.to_json.html_safe %>,
       root: null,
       selectField: null,
       options: {},
@@ -25,6 +36,25 @@
         this.initSelectField();
         this.initOptions();
         this.render();
+        this.initParams();
+        this.initErrors();
+      },
+      initErrors: function(){
+        if(this.active && this.errors && this.errors.validation_args && this.errors.validation_args[0]){
+          var validationErrors = this.errors.validation_args[0];
+          $.each(validationErrors, function(key, error){
+            var arg = this.active.args[key];
+            if(arg) arg.renderErrors(error);
+          }.bind(this));
+        }
+      },
+      initParams: function(){
+        if(this.params && this.active){
+          $.each(this.params, function(key, param){
+            var arg = this.active.args[key];
+            if(arg) arg.setValue(param);
+          }.bind(this));
+        }
       },
       initFieldContainer: function(){
         this.fieldContainer = this.container.find('fieldset.inputs ol');

@@ -5,7 +5,7 @@ ActiveAdmin.register SurveyFieldValidation do
 
   # strong parameters
   permit_params do
-    permitted = :identity, :validation_args
+    permitted = [:identity, validation_args: SurveyFieldValidation::ValidationIdentity.param_keys]
     permitted << :survey_field_id if params[:action] == 'create'
     permitted
   end
