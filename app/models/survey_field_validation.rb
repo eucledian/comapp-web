@@ -21,7 +21,7 @@ class SurveyFieldValidation < ActiveRecord::Base
   end
 
   def self.json_data_types
-    ValidationDataType.to_json.html_safe
+    ValidationDataType::List.to_json.html_safe
   end
 
   def self.json_identities

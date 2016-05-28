@@ -1,22 +1,226 @@
 <script type="text/javascript">
-(function(){
+(function($){
   $(function(){
-    var action = {};
+    var action = window.action = {};
     $.extend(action, {
       container: null,
+      fieldContainer: null,
       validations: <%= klass.json_identities %>,
-      data_types: <%= klass.json_data_types %>,
-      element: <%= @element.to_json.html_safe %>,
-      identity_field: null,
+      dataTypes: <%= klass.json_data_types %>,
+      element: <%= form.object.to_json.html_safe %>,
+      errors: <%= form.object.errors.to_json.html_safe %>,
+      root: null,
+      selectField: null,
+      options: {},
       init: function(){
+        this.initRoot();
         this.initContainer();
-        this.initIdentityField();
+      },
+      initRoot: function(){
+        this.root = this;
       },
       initContainer: function(){
         this.container = $('form.survey_field_validation');
+        this.initFieldContainer();
+        this.initSelectField();
+        this.initOptions();
+        this.render();
       },
-      initIdentityField: function(){
-        
+      initFieldContainer: function(){
+        this.fieldContainer = this.container.find('fieldset.inputs ol');
+      },
+      initSelectField: function(){
+        this.selectField = this.fieldContainer.find('#survey_field_validation_identity');
+        this.selectField.change(this.selectFieldOnChange.bind(this));
+      },
+      selectFieldOnChange: function(){
+        this.render();
+      },
+      render: function(){
+        var val = parseInt(this.selectField.val());
+        var option = this.options[val];
+        this.setActive(option);
+      },
+      setActive: function(which){
+        if(which != this.active){
+          if(which){
+            if(this.active != null) this.active.disable();
+            which.enable();
+          }
+          else{
+            this.active.disable();
+          }
+          this.active = which;
+        }
+      },
+      initOptions: function(){
+        var _self = this;
+        var optionList = this.selectField.find('option');
+        optionList.each(function(){
+          _self.addOption($(this));
+        });
+      },
+      addOption: function(container){
+        var el = {};
+        $.extend(el, {
+          parent: this,
+          root: this.root,
+          container: container,
+          key: null,
+          identity: null,
+          args: {},
+          init: function(){
+            this.initContainer();
+          },
+          append: function(){
+            this.root.options[this.key] = this;
+          },
+          initContainer: function(){
+            this.initKey();
+            if(this.key != null){
+              this.initIdentity();
+              this.initArgs();
+              this.append();
+            }
+          },
+          enable: function(){
+            $.each(this.args, function(k, v){
+              v.enable();
+            });
+          },
+          disable: function(){
+            $.each(this.args, function(k, v){
+              v.disable();
+            });
+          },
+          initArgs: function(){
+            var els = this.identity.args;
+            $.each(els, this.addArg.bind(this));
+          },
+          addArg: function(key, data){
+            var el = {};
+            $.extend(el, {
+              parent: this,
+              root: this.root,
+              key: key,
+              data: data,
+              container: null,
+              fieldErrors: null,
+              init: function(){
+                this.initContainer();
+                this.append();
+              },
+              initContainer: function(){
+                this.container = $('<li class="input"></li>');
+                this.initLabel();
+                this.initInput();
+                this.initFieldErrors();
+              },
+              initInput: function(){
+                var dataTypes = this.root.dataTypes;
+                var val = this.data.data_type;
+                var el = null;
+                switch(val){
+                  case dataTypes.string:
+                  case dataTypes.number:
+                  case dataTypes.integer:
+                  case dataTypes.array:
+                  case dataTypes.regex:
+                    el = this.getTextInput();
+                    break;
+                  case dataTypes.boolean:
+                    el = this.getCheckboxInput();
+                    break;
+                }
+                if(el){
+                  var fieldContainer = $('<div class="field_with_errors"></div>');
+                  this.input = el;
+                  el.appendTo(fieldContainer);
+                  fieldContainer.appendTo(this.container);
+                }
+              },
+              setValue: function(value){
+                var dataTypes = this.root.dataTypes;
+                var val = this.data.data_type;
+                switch(val){
+                  case dataTypes.string:
+                  case dataTypes.number:
+                  case dataTypes.integer:
+                  case dataTypes.array:
+                  case dataTypes.regex:
+                    this.input.val(value);
+                    break;
+                  case dataTypes.boolean:
+                    this.input.attr('checked', (value == 1));
+                    break;
+                }
+              },
+              getTextInput: function(){
+                return this.getInput({
+                  type: 'text'
+                });
+              },
+              getCheckboxInput: function(){
+                var res = $();
+                var hidden = this.getInput({
+                  type: 'hidden',
+                  value: 0
+                });
+                var checkbox = this.input = this.getInput({
+                  type: 'checkbox',
+                  value: 1
+                });
+                res = res.add(hidden).add(checkbox);
+                return res;
+              },
+              getInput: function(opts){
+                var name = 'survey_field_validation[validation_args][' + this.key + ']';
+                return $('<input />', $.extend(opts, {
+                  name: name
+                }));
+              },
+              initLabel: function(){
+                var labelContainer = $('<div class="field_with_errors"></div>');
+                var label = $('<label class="label"></label>');
+                label.html(this.data.name);
+                label.appendTo(labelContainer);
+                labelContainer.appendTo(this.container);
+              },
+              initFieldErrors: function(){
+                var el = this.fieldErrors = $('<p class="inline-errors"></p>');
+                el.appendTo(this.container);
+              },
+              enable: function(){
+                this.container.appendTo(this.root.fieldContainer);
+                this.clearErrors();
+              },
+              disable: function(){
+                this.container.remove();
+              },
+              renderErrors: function(errors){
+                var msg = errors.join(',');
+                this.fieldErrors.html(msg);
+              },
+              clearErrors: function(){
+                this.fieldErrors.html('');
+              },
+              append: function(){
+                this.parent.args[this.key] = this;
+              }
+            });
+            el.init();
+          },
+          initKey: function(){
+            var key = parseInt(this.container.attr('value'));
+            if(isFinite(key) && !isNaN(key)){
+              this.key = key;
+            }
+          },
+          initIdentity: function(){
+            this.identity = this.root.validations['' + this.key];
+          }
+        });
+        el.init();
       }
     });
     action.init();
