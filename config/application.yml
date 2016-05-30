@@ -1,0 +1,10 @@
+defaults: &defaults
+  salt: 'comapp-web'
+development_and_test: &development_and_test
+  <<: *defaults
+development:
+  <<: *development_and_test
+test: &test
+  <<: *development_and_test
+production:
+  <<: *defaults

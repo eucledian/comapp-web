@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525080323) do
+ActiveRecord::Schema.define(version: 20160530223238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,16 @@ ActiveRecord::Schema.define(version: 20160525080323) do
 
   add_index "app_user_surveys", ["app_user_id"], name: "index_app_user_surveys_on_app_user_id", using: :btree
   add_index "app_user_surveys", ["survey_id"], name: "index_app_user_surveys_on_survey_id", using: :btree
+
+  create_table "app_user_tokens", force: :cascade do |t|
+    t.integer  "user_id",    limit: 8, null: false
+    t.integer  "identity",             null: false
+    t.text     "token",                null: false
+    t.text     "secret",               null: false
+    t.datetime "expires_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
 
   create_table "app_users", force: :cascade do |t|
     t.string   "name",       null: false
@@ -149,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160525080323) do
   add_foreign_key "app_user_survey_responses", "survey_fields", on_update: :cascade, on_delete: :cascade
   add_foreign_key "app_user_surveys", "app_users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "app_user_surveys", "surveys", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "app_user_tokens", "app_users", column: "user_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "survey_field_options", "survey_fields", on_update: :cascade, on_delete: :cascade
   add_foreign_key "survey_field_validations", "survey_fields", on_update: :cascade, on_delete: :cascade
   add_foreign_key "survey_fields", "surveys", on_update: :cascade, on_delete: :cascade

@@ -25,8 +25,14 @@ module ComappWeb
     config.active_record.raise_in_transactional_callbacks = true
 
     # Generators
+    # remove asset generators
     config.generators do |g|
-      g.test_framework :rspec
+      # test generators
+      g.test_framework  :rspec, :fixture => false
+      g.view_specs false
+      g.helper_specs false
+      # disable assets generators
+      g.assets false
     end
   end
 end
