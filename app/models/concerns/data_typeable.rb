@@ -11,41 +11,42 @@ module DataTypeable
   module DataType
     LBase = 'survey_field.data_type'
     String = 0
-    Integer = 1
-    Float = 2
-    Date = 3
-    DateTime = 4
-    RawDate = 5
-    Place = 6
+    # Integer = 1
+    # Float = 2
+    # Date = 3
+    # DateTime = 4
+    # RawDate = 5
+    # Place = 6
     List = {
       String => {
         name: I18n.t("#{LBase}.string"),
         key: 'string'
-      },
-      Integer => {
-        name: I18n.t("#{LBase}.integer"),
-        key: 'integer'
-      },
-      Float => {
-        name: I18n.t("#{LBase}.float"),
-        key: 'float'
-      },
-      Date => {
-        name: I18n.t("#{LBase}.date"),
-        key: 'date'
-      },
-      DateTime => {
-        name: I18n.t("#{LBase}.date_time"),
-        key: 'date_time'
-      },
-      RawDate => {
-        name: I18n.t("#{LBase}.raw_date"),
-        key: 'raw_date'
-      },
-      Place => {
-        name: I18n.t("#{LBase}.place"),
-        key: 'place'
       }
+      # ,
+      # Integer => {
+      #   name: I18n.t("#{LBase}.integer"),
+      #   key: 'integer'
+      # },
+      # Float => {
+      #   name: I18n.t("#{LBase}.float"),
+      #   key: 'float'
+      # },
+      # Date => {
+      #   name: I18n.t("#{LBase}.date"),
+      #   key: 'date'
+      # },
+      # DateTime => {
+      #   name: I18n.t("#{LBase}.date_time"),
+      #   key: 'date_time'
+      # },
+      # RawDate => {
+      #   name: I18n.t("#{LBase}.raw_date"),
+      #   key: 'raw_date'
+      # },
+      # Place => {
+      #   name: I18n.t("#{LBase}.place"),
+      #   key: 'place'
+      # }
     }
     def self.keys
       @@keys ||= List.keys

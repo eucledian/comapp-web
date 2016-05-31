@@ -11,46 +11,47 @@ module FieldIdentifiable
   module Identity
     LBase = 'survey_field.identity'
     Text = 0
-    Textarea = 1
-    Checkbox = 2
-    Radio = 3
+    # Textarea = 1
+    # Checkbox = 2
+    # Radio = 3
     Select = 4
-    Matrix = 5
-    Catalog = 6
-    File = 7
+    # Matrix = 5
+    # Catalog = 6
+    # File = 7
     List = {
       Text => {
         name: I18n.t("#{LBase}.text"),
         key: 'text'
       },
-      Textarea => {
-        name: I18n.t("#{LBase}.textarea"),
-        key: 'textarea'
-      },
-      Checkbox => {
-        name: I18n.t("#{LBase}.checkbox"),
-        key: 'checkbox'
-      },
-      Radio => {
-        name: I18n.t("#{LBase}.radio"),
-        key: 'radio'
-      },
+      # Textarea => {
+      #   name: I18n.t("#{LBase}.textarea"),
+      #   key: 'textarea'
+      # },
+      # Checkbox => {
+      #   name: I18n.t("#{LBase}.checkbox"),
+      #   key: 'checkbox'
+      # },
+      # Radio => {
+      #   name: I18n.t("#{LBase}.radio"),
+      #   key: 'radio'
+      # },
       Select => {
         name: I18n.t("#{LBase}.select"),
         key: 'select'
-      },
-      Matrix => {
-        name: I18n.t("#{LBase}.matrix"),
-        key: 'matrix'
-      },
-      Catalog => {
-        name: I18n.t("#{LBase}.catalog"),
-        key: 'catalog'
-      },
-      File => {
-        name: I18n.t("#{LBase}.file"),
-        key: 'file'
       }
+      # ,
+      # Matrix => {
+      #   name: I18n.t("#{LBase}.matrix"),
+      #   key: 'matrix'
+      # },
+      # Catalog => {
+      #   name: I18n.t("#{LBase}.catalog"),
+      #   key: 'catalog'
+      # },
+      # File => {
+      #   name: I18n.t("#{LBase}.file"),
+      #   key: 'file'
+      # }
     }
     def self.keys
       @@keys ||= List.keys
