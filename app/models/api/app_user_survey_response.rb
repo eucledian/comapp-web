@@ -10,7 +10,7 @@ class Api::AppUserSurveyResponse < AppUserSurveyResponse
       data.each do |key, response_data|
         local_errors = nil
         begin
-          app_user_survey_response = AppUserSurveyResponse.new
+          app_user_survey_response = self.new
           app_user_survey_response.app_user_survey = app_user_survey
           app_user_survey_response.survey_field = SurveyField.find(response_data[:survey_field_id])
           app_user_survey_response.response = response_data[:response]

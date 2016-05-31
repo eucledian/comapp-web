@@ -65,13 +65,13 @@ describe Api::AppUserSurveyResponsesController do
       it 'should create an AppUserSurvey with valid and invalid responses' do
         apppend_app_user_survey_responses(
           app_user_survey_responses + [
+            # invalid +survey_field_id+
             build(:app_user_survey_response,
               response: 'Option 10',
-              # invalid +survey_field_id+
               survey_field_id: 'INVALID'
             ),
+            # invalid response
             build(:app_user_survey_response,
-              # invalid response
               response: '',
               survey_field_id: survey_field.id
             )
