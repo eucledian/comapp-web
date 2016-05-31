@@ -103,3 +103,6 @@ es:
       survey_field_validation:
         <<: *shared_attributes
         identity: Tipo
+      zone:
+        <<: *shared_attributes
+        lat: 'Ubicación'

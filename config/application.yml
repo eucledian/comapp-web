@@ -1,5 +1,8 @@
 defaults: &defaults
   salt: 'comapp-web'
+  google:
+    maps:
+      key: AIzaSyCEJlD2gNMaGx3o0CFvLwfLixs0iGK192Q
 development_and_test: &development_and_test
   <<: *defaults
 development:
@@ -8,3 +11,6 @@ test: &test
   <<: *development_and_test
 production:
   <<: *defaults
+  google:
+    maps:
+      key: '<%= ENV['COMAPP_GOOGLE_MAPS_KEY'] %>'

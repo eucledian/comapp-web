@@ -34,10 +34,13 @@ ActiveAdmin.register Zone do
 
    # form
   form do |f|
+    render partial: 'action', locals: { element: f.object, key: Settings.google.maps.key }
     f.inputs 'Detalles' do
       f.input :name
-      f.input :lat
-      f.input :lng
+    end
+    f.inputs('Ubicación', class: 'geofence-fieldset') do
+      # Coordindate selector anchor point
+      f.input :lat, as: :geofence
     end
     f.actions
   end

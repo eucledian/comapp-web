@@ -1,0 +1,31 @@
+<script type="text/javascript">
+  (function($){
+    $(function(){
+      var action = {};
+      $.extend(action, {
+        container: null,
+        root: app.root,
+        key: '<%= key %>',
+        element: <%= element.to_json.html_safe %>,
+        init: function(){
+          this.initContainer();
+          this.initCoordinateSelector();
+        },
+        initContainer: function(){
+          this.container = $('form.zone');
+        },
+        initCoordinateSelector: function(){
+          var selector = this.container.find('#zone_lat_input').coordinate_selector({
+             hasGeofenceBuilder: false,
+             namespace: 'zone',
+             element: this.element
+          });
+          this.root.google_maps_loader.load(function(){
+            selector.data('euc.coordinate-selector').load();
+          }, this.key);
+        }
+      });
+      action.init();
+    });
+  })(jQuery);
+</script>

@@ -18,3 +18,13 @@ $skinLogo: none;
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+.geofence_input{
+  display: inline-block;
+  width: calc(80% - 22px);
+  border: 1px solid #c9d0d6;
+  border-radius: 3px;
+  padding: 8px 10px 7px;
+  min-height: 300px;
+  margin-left: 20%;
+  margin-top: 12px;
+}
