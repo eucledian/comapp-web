@@ -60,5 +60,6 @@ Rails.application.routes.draw do
     post 'surveys/:survey_id', to: 'app_user_survey_responses#sync', as: :app_user_survey_responses_sync
     post 'markers', to: 'app_user_markers#sync', as: :app_user_markers_sync
     get 'markers', to: 'markers#list', as: :markers_list
+    get 'surveys', to: 'surveys#list', as: :surveys_list
   end
 end
