@@ -31,4 +31,9 @@ module Controllable
   def render_404
     render_error(:not_found, "404 Not Found")
   end
+
+  def render_error(status, message = nil)
+    message = message.nil? ? "Error" : message
+    render text: message, status: status
+  end
 end

@@ -3,9 +3,6 @@ class Api::ApiController < ApplicationController
   # disable CSRF verification
   skip_before_action :verify_authenticity_token
 
-  # concerns
-  include Api::Permissible
-
   # show constant
   Show = 50
 
@@ -27,8 +24,8 @@ class Api::ApiController < ApplicationController
       has_token? do
         token = Api::AppUserToken.find_auth_token(@token_data['Auth-Token'], @token_data['Auth-Secret'])
         if token.present?
-          self.app_token = token.renew_data!(params[:notification_token])
-          user = token.user
+          self.app_token = token
+          user = token.app_user
           user
         end
       end

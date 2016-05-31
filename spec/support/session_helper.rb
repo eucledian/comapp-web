@@ -6,7 +6,7 @@ module TestingSupport
     end
 
     def api_login(mail, raw_password)
-      url = api_users_login_url(format: :json)
+      url = api_users_login_url
       with_rack_test_driver do
         data = api_user_params(mail, raw_password)
         page.driver.submit :post, url, data
@@ -20,7 +20,7 @@ module TestingSupport
 
     def create_api_session
       raw_password = '123456'
-      app_user = create(:app_user, raw_password: raw_password, mock_processor_context: self)
+      app_user = create(:app_user, raw_password: raw_password)
       api_login(app_user.mail, raw_password)
     end
 

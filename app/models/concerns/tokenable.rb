@@ -7,7 +7,7 @@ module Tokenable
     # scopes
     scope :filter_by_token, ->(token, secret){ where(token: token, secret: secret) }
     scope :filter_by_user, ->(user_id){ where(user_id: user_id) }
-    scope :valid, -> { where("#{self.expires_at_field} > ?", Time.now)  }
+    scope :valid, -> { where("(#{self.expires_at_field} IS NULL OR #{self.expires_at_field} > ?)", Time.now)  }
 
     # validations
     validates :user_id, presence: true, numericality: { only_integer: true }
@@ -71,7 +71,7 @@ module Tokenable
         salt = ApplicationController.encrypt(token_data)
         if secret_data == salt
           data = JSON.parse(token_data)
-          el = self.base.filter_by_token(token, secret).filter_by_user(data['user_id']).order(nil)
+          el = self.filter_by_token(token, secret).filter_by_user(data['user_id']).order(nil)
           el = el.where(conditions) unless conditions.empty?
           el = el.valid if self.expires?
           el = el.first

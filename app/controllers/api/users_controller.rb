@@ -1,12 +1,8 @@
-class Api::UsersController < ApplicationController
+class Api::UsersController < Api::ApiController
 
-  # POST /api/users/login.json
+  # POST /api/users/login
   def login
-    respond_to do |format|
-      format.json do
-        render json: cls.authenticate(data)
-      end
-    end
+    render json: cls.authenticate(data)
   end
 
   protected
@@ -16,6 +12,6 @@ class Api::UsersController < ApplicationController
   end
 
   def data
-    params[:app_user]
+    params[:app_user] || {}
   end
 end

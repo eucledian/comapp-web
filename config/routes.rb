@@ -57,5 +57,6 @@ Rails.application.routes.draw do
   #   end
   namespace :api do
     post 'users/login', to: 'users#login', as: :users_login
+    post 'surveys/:survey_id', to: 'app_user_survey_responses#sync', as: :app_user_survey_responses_sync
   end
 end
