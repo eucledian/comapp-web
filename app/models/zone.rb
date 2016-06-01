@@ -9,4 +9,8 @@ class Zone < ActiveRecord::Base
   validates :lat, numericality: true
   validates :lng, numericality: true
 
+  def self.select_list
+    order(name: :asc)
+  end
+
 end

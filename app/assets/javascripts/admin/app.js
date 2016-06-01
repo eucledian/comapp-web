@@ -1,4 +1,4 @@
-var app = {};
+var app = window.app = {};
 $.extend(app, {
   root: null,
   _window: null,
@@ -8,12 +8,30 @@ $.extend(app, {
   body: null,
   viewport: null,
   google_maps_loader: null,
+  _window: null,
+  has_touch: false,
   init: function(){
     this.initRoot();
+    this.initWindow();
+    this.initHasTouch();
     this.initGoogleMapsLoader();
   },
   initRoot: function(){
     this.root = this;
+  },
+  initWindow: function(){
+    this._window = $(window);
+  },
+  initHasTouch: function(){
+    this.has_touch = !('chrome' in window) && ('ontouchstart' in document.documentElement || (window.DocumentTouch && (document instanceof DocumentTouch)));
+  },
+  resize: function(callback){
+    if(this.has_touch){
+      window.addEventListener('orientationchange', callback, false);
+    }
+    else{
+      this._window.resize(callback);
+    }
   },
   click: function(container, callback, stop, prevent){
     if(stop == null) stop = false;

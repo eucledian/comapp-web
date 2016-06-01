@@ -1,0 +1,99 @@
+<script type="text/javascript">
+  (function($){
+    $(function(){
+      var dashboard = window.dashboard = {};
+      $.extend(dashboard, {
+        zones: <%= zones.to_json.html_safe %>,
+        $container: null,
+        root: null,
+        init: function(){
+          this.root = this;
+          this.initCanvas();
+          this.initMap();
+          this.initPanel();
+        },
+        initCanvas: function(){
+          var el = this.canvas = {};
+          $.extend(el, {
+            parent: this,
+            root: this.root,
+            windowDimen: {},
+            init: function(){
+              this.initContainer();
+              this.render();
+              app.resize(this.render.bind(this));
+            },
+            render: function(){
+              this.updateWindowDimen();
+              var calculatedHeight = this.windowDimen.heigth - (this.windowDimen.footerHeight + this.windowDimen.top + this.windowDimen.parentPaddingBottom);
+              var height = calculatedHeight;
+              if(calculatedHeight < this.windowDimen.minHeight) height = minHeight;
+              this.container.css('height', height);
+            },
+            updateWindowDimen: function(){
+              $.extend(this.windowDimen, {
+                width: app._window.width(),
+                heigth: app._window.height()
+              });
+            },
+            initContainer: function(){
+              this.container = $('#dashboard-map');
+              var parentContainer = $('#active_admin_content'),
+                footer = $('#footer')
+              ;
+              $.extend(this.windowDimen, {
+                minHeight: parseFloat(this.container.css('min-height')),
+                footerHeight: footer.outerHeight(),
+                parentPaddingBottom: parseFloat(parentContainer.css('padding-bottom'))
+              }, this.container.offset());
+            }
+          });
+          el.init();
+        },
+        initMap: function () {
+          var el = this.map = {};
+          $.extend(el, {
+            parent: this,
+            root: this.root,
+            init: function(){
+              this.initContainer();
+            },
+            initContainer: function(){
+              var id = 'dashboard-map-wrapper';
+              this.container = $('<div id="' + id + '"></div>');
+              this.container.appendTo(this.root.canvas.container);
+              this.initMap(id);
+            },
+            initMap: function(id){
+              this.map = L.map(id).setView([19.432608, -99.133209], 13);
+              L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+          			maxZoom: 18,
+          			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+          				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+          			id: 'mapbox.streets'
+          		}).addTo(this.map)
+            }
+          });
+          el.init();
+        },
+        initPanel: function(){
+          var el = this.panel = {};
+          $.extend(el, {
+            parent: this,
+            root: this.root,
+            init: function(){
+              this.initContainer();
+            },
+            initContainer: function(){
+              this.container = $('<div id="dashboard-panel"></div>');
+              this.container.appendTo(this.root.canvas.container);
+            }
+          });
+          el.init();
+        }
+      });
+      dashboard.init();
+    });
+  })(jQuery);
+</script>
