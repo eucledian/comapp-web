@@ -12,6 +12,9 @@ class Api::Marker < Marker
   end
 
   def icon_url
-    icon.url if icon.present?
+    #FIXME paperclip namespace error
+    if icon.present?
+      icon.url.gsub(/\/api\//, '/')
+    end
   end
 end
