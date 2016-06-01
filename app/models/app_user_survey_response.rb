@@ -6,6 +6,5 @@ class AppUserSurveyResponse < ActiveRecord::Base
 
   # validations
   validates :app_user_survey, :survey_field, presence: true
-  validates :response, length: { minimum: 2 }
 
 end

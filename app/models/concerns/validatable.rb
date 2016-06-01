@@ -27,9 +27,9 @@ module Validatable
     Numericality = 2
     Inclusion = 3
     Exclusion = 4
-    Uniqueness = 5
+    #Uniqueness = 5
     Format = 6
-    Confirmation = 7
+    #Confirmation = 7
     List = {
       Presence => {
         name: I18n.t("#{LBase}.presence"),
@@ -140,20 +140,20 @@ module Validatable
           allow_blank: true
         }
       },
-      Uniqueness => {
-        name: I18n.t("#{LBase}.uniqueness"),
-        key: :uniqueness,
-        args: {
-          scope: {
-            name: I18n.t("#{ArgsLBase}.scope"),
-            key: :scope,
-            data_type: ValidationDataType::String
-          }
-        },
-        extra_args: {
-          allow_blank: true
-        }
-      },
+      # Uniqueness => {
+      #   name: I18n.t("#{LBase}.uniqueness"),
+      #   key: :uniqueness,
+      #   args: {
+      #     scope: {
+      #       name: I18n.t("#{ArgsLBase}.scope"),
+      #       key: :scope,
+      #       data_type: ValidationDataType::String
+      #     }
+      #   },
+      #   extra_args: {
+      #     allow_blank: true
+      #   }
+      # },
       Format => {
         name: I18n.t("#{LBase}.format"),
         key: :format,
@@ -168,15 +168,16 @@ module Validatable
         extra_args: {
           allow_blank: true
         }
-      },
-      Confirmation => {
-        name: I18n.t("#{LBase}.confirmation"),
-        key: :confirmation,
-        args: {},
-        extra_args: {
-          allow_blank: true
-        }
       }
+      # ,
+      # Confirmation => {
+      #   name: I18n.t("#{LBase}.confirmation"),
+      #   key: :confirmation,
+      #   args: {},
+      #   extra_args: {
+      #     allow_blank: true
+      #   }
+      # }
     }
 
     def self.param_keys
