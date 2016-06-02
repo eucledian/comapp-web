@@ -46,8 +46,8 @@ es:
   activerecord:
     models:
       zone:
-        one: Lugar
-        other: Lugares
+        one: Zona
+        other: Zonas
       admin_user:
         one: Usuario
         other: Usuarios

@@ -12,8 +12,8 @@
 @import "active_admin/base";
 
 // Active Skin
-$skinLogo: none;
-@import "active_skin";
+$skinActiveColor: #E57115;
+@import "active_admin_flat_skin";
 
 @import "leaflet";
 
