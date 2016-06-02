@@ -36,6 +36,8 @@ gem 'settingslogic', '~> 2.0.9'
 gem 'activeadmin', github: 'activeadmin'
 # ActiveAdmin Flat Skin
 gem 'active_admin_flat_skin'
+# Font Awesome
+gem 'font-awesome-rails'
 # Acts as List
 gem 'acts_as_list'
 # gem 'active_admin-acts_as_list'
