@@ -106,3 +106,6 @@ es:
       zone:
         <<: *shared_attributes
         lat: 'Ubicación'
+      app_user:
+        <<: *shared_attributes
+        password_confirmation: 'Confirmación'

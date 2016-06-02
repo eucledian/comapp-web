@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
   namespace :api do
     post 'users/login', to: 'users#login', as: :users_login
     # surveys
@@ -64,4 +65,6 @@ Rails.application.routes.draw do
     get 'markers', to: 'markers#list', as: :markers_list
     post 'markers', to: 'app_user_markers#sync', as: :app_user_markers_sync
   end
+
+  root 'splash#index'
 end
