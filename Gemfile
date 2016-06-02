@@ -34,8 +34,8 @@ gem 'settingslogic', '~> 2.0.9'
 
 # ActiveAdmin for cms interface
 gem 'activeadmin', github: 'activeadmin'
-# ActiveAdmin Skin
-gem 'active_skin'
+# ActiveAdmin Flat Skin
+gem 'active_admin_flat_skin'
 # Acts as List
 gem 'acts_as_list'
 # gem 'active_admin-acts_as_list'
