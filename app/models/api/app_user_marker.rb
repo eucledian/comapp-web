@@ -1,5 +1,7 @@
 class Api::AppUserMarker < AppUserMarker
 
+  scope :coordinates_for_marker_and_zone, ->(marker_id, zone_id){ coordinate_base.filter_by_marker_and_zone(marker_id, zone_id) }
+
   def self.sync(data, app_user)
     results = {}
     errors = {}
@@ -26,4 +28,16 @@ class Api::AppUserMarker < AppUserMarker
 
     { results: results, errors: errors }
   end
+
+
+  def self.list_by_marker(zone_id)
+    Api::Marker.list.map do |el|
+      {
+        name: el.name,
+        icon_url: el.icon_url,
+        locations: self.coordinates_for_marker_and_zone(el.id, zone_id)
+      }
+    end
+  end
+
 end

@@ -17,4 +17,6 @@ class Api::Marker < Marker
       icon.url.gsub(/\/api\//, '/')
     end
   end
+
+
 end

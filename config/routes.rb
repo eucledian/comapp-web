@@ -64,6 +64,8 @@ Rails.application.routes.draw do
     # markers
     get 'markers', to: 'markers#list', as: :markers_list
     post 'markers', to: 'app_user_markers#sync', as: :app_user_markers_sync
+    # app user markers
+    get 'app_user_markers/:zone_id', to: 'app_user_markers#list', as: :app_user_marker_list
   end
 
   root 'splash#index'
