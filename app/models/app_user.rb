@@ -18,6 +18,7 @@ class AppUser < ActiveRecord::Base
   validates :last_names, length: { in: 2..100 }
   validates :mail, length: { in: 2..100 }
 
+  before_validation :set_auth, on: :create
 
   # authenticate method
   # returns a token or errors hash
@@ -44,4 +45,11 @@ class AppUser < ActiveRecord::Base
   def min_pass_length
     @min_pass_length ||= 6
   end
+
+  protected
+
+  def set_auth
+    set_password(password, password_confirmation)
+  end
+
 end
