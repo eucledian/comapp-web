@@ -1,8 +1,5 @@
 ActiveAdmin.register Zone do
 
-  # menu
-  menu label: I18n.t('activerecord.models.zone.one')
-
   # strong parameters
   permit_params :name, :lat, :lng
 
