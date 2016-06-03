@@ -130,13 +130,47 @@
                     root: this.root,
                     marker: marker,
                     key: key,
+                    locations: [],
                     init: function(){
                       this.initContainer();
                       this.append();
                     },
                     remove: function(){
                       this.container.remove();
+                      $.each(this.locations, this.removeLocation.bind(this))
                       // TODO remove map
+                    },
+                    removeLocation: function(key, location){
+                      location.remove();
+                    },
+                    addLocation: function(key, data){
+                      var el = {};
+                      $.extend(el, {
+                        parent: this,
+                        root: this.root,
+                        data: data,
+                        map: this.root.map.map,
+                        init: function(){
+                          this.initMarker();
+                          this.append();
+                        },
+                        initMarker: function(){
+                          var icon = L.icon({
+                            iconUrl: this.parent.marker.icon_url,
+                            iconSize: [30, 30]
+                          });
+                          this.marker = L.marker([data.lat, data.lng], {
+                            icon: icon
+                          }).addTo(this.map);
+                        },
+                        remove: function(){
+                          this.map.removeLayer(this.marker);
+                        },
+                        append: function(){
+                          this.parent.locations.push(this);
+                        }
+                      });
+                      el.init();
                     },
                     initContainer: function(){
                       this.container = $('<div class="dashboard-panel-marker"></div>');
@@ -151,6 +185,7 @@
                         this.initIcon();
                       }
                       this.container.append('<div class="clear"></div>');
+                      $.each(this.marker.locations, this.addLocation.bind(this));
                       this.container.appendTo(this.parent.container);
                     },
                     initWrapper: function(){
