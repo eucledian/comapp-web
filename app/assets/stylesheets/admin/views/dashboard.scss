@@ -1,4 +1,7 @@
 $min-height: 300px;
+.clear{
+  clear: both;
+}
 #dashboard-map{
   min-height: $min-height;
   width: 100%;
@@ -12,7 +15,7 @@ $min-height: 300px;
     top: 0;
   }
   #dashboard-panel{
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.90);
     box-shadow: -5px 0 5px rgba(0, 0, 0, 0.15);
     position: absolute;
     right: 0;
@@ -23,7 +26,129 @@ $min-height: 300px;
     transition: right 300ms ease 0s;
     &.closed{
       right: -17rem;
-      width: 0;
+      box-shadow: 0 0 0;
+    }
+    $m: 0.45rem;
+    #dashboard-panel-hide-button{
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: #333333;
+    }
+    .dashboard-panel-label{
+      color: #888888;
+      font-size: 0.85rem;
+      margin-top: 1.25rem;
+      margin-left: $m;
+      margin-bottom: $m;
+      display: block;
+    }
+    #dashboard-panel-select{
+      margin: $m;
+      display: block;
+    }
+    #dashboard-panel-markers{
+      padding: $m;
+      .dashboard-panel-marker{
+        margin-bottom: $m;
+        padding-bottom: $m;
+        border-bottom: 1px solid #DDDDDD;
+        .dashboard-panel-marker-icon{
+          width: 30%;
+          height: 30%;
+          float: left;
+        }
+        .dashboard-panel-marker-wrapper{
+          float: left;
+          width: 70%;
+          .dashboard-panel-marker-inner{
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+          }
+          .dashboard-panel-marker-count{
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 1.5rem;
+          }
+          .dashboard-panel-marker-label{
+            display: block;
+          }
+        }
+        &.odd{
+          .dashboard-panel-marker-count{
+            text-align: right;
+          }
+          .dashboard-panel-marker-label{
+            text-align: right;
+          }
+        }
+      }
     }
   }
+  a#dashboard-panel-show{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    text-decoration: none;
+    box-shadow: -5px 0 5px rgba(0, 0, 0, 0.15);
+    background-color: #FFF;
+    padding: 6px 8px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    display: none;
+    &:hover{
+      background-color: #FAFAFA;
+    }
+  }
+  #dashboard-loader{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.65);
+    z-index: 9999;
+    $s: 30px;
+    #loader-sprite{
+      position:absolute;
+      width:$s;
+      height:$s;
+      background: $skinActiveColor;
+      border-radius:50px;
+      left: 50%;
+      top: 50%;
+      margin-left: ($s / -2);
+      margin-right: ($s / -2);
+      animation: loader-animation 1.5s infinite linear;
+      &:after{
+        position:absolute;
+        width:50px;
+        height:50px;
+        border-top:10px solid $skinActiveColor;
+        border-bottom:10px solid $skinActiveColor;
+        border-left:10px solid transparent;
+        border-right:10px solid transparent;
+        border-radius:50px;
+        content:'';
+        top:-10px;
+        left:-10px;
+        animation: loader-animation-after 1.5s infinite linear;
+      }
+    }
+  }
+}
+
+@keyframes loader-animation {
+  0% {transform: rotate(0deg);}
+  50% {transform: rotate(180deg);background:#2ecc71;}
+  100% {transform: rotate(360deg);}
+}
+@keyframes loader-animation-after {
+  0% {border-top:10px solid #9b59b6;border-bottom:10px solid #9b59b6;}
+  50% {border-top:10px solid #3498db;border-bottom:10px solid #3498db;}
+  100% {border-top:10px solid #9b59b6;border-bottom:10px solid #9b59b6;}
 }
