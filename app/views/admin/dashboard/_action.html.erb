@@ -11,6 +11,7 @@
           this.initCanvas();
           this.initMap();
           this.initPanel();
+          this.initLoader();
         },
         initCanvas: function(){
           var el = this.canvas = {};
@@ -73,6 +74,10 @@
           				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
           			id: 'mapbox.streets'
           		}).addTo(this.map)
+            },
+            updateZone: function(){
+              var zone = this.root.zone;
+              this.map.setView([zone.lat, zone.lng]);
             }
           });
           el.init();
@@ -86,11 +91,223 @@
               this.initContainer();
             },
             initContainer: function(){
+              this.initShowBtn();
               this.container = $('<div id="dashboard-panel"></div>');
+              this.initHideBtn();
+              this.initPanelSelector();
+              this.initMarkers();
               this.container.appendTo(this.root.canvas.container);
+            },
+            setMarkers: function(markers){
+              this.markers.setMarkers(markers);
+            },
+            initMarkers: function(){
+              var el = this.markers = {};
+              $.extend(el, {
+                parent: this,
+                root: this.root,
+                markers: [],
+                init: function(){
+                  this.initContainer();
+                },
+                initContainer: function(){
+                  this.container = $('<div id="dashboard-panel-markers"></div>');
+                  this.container.appendTo(this.parent.container);
+                },
+                setMarkers: function(markers){
+                  // TODO removeMarkers
+                  $.each(this.markers, this.removeMarker.bind(this));
+                  this.markers = [];
+                  $.each(markers, this.addMarker.bind(this));
+                },
+                removeMarker: function(key, marker){
+                  marker.remove();
+                },
+                addMarker: function(key, marker){
+                  var el = {};
+                  $.extend(el, {
+                    parent: this,
+                    root: this.root,
+                    marker: marker,
+                    key: key,
+                    init: function(){
+                      this.initContainer();
+                      this.append();
+                    },
+                    remove: function(){
+                      this.container.remove();
+                      // TODO remove map
+                    },
+                    initContainer: function(){
+                      this.container = $('<div class="dashboard-panel-marker"></div>');
+                      if(key % 2 == 0){
+                        this.container.addClass('even');
+                        this.initIcon();
+                        this.initWrapper();
+                      }
+                      else{
+                        this.container.addClass('odd');
+                        this.initWrapper();
+                        this.initIcon();
+                      }
+                      this.container.append('<div class="clear"></div>');
+                      this.container.appendTo(this.parent.container);
+                    },
+                    initWrapper: function(){
+                      var wrapper = $('<div class="dashboard-panel-marker-wrapper"></div>')
+                        inner = $('<div class="dashboard-panel-marker-inner"></div>'),
+                        count = $('<span class="dashboard-panel-marker-count"></span>'),
+                        label = $('<span class="dashboard-panel-marker-label"></span>')
+                      ;
+                      count.html('' + this.marker.locations.length);
+                      label.html(this.marker.name);
+                      count.appendTo(inner);
+                      label.appendTo(inner);
+                      inner.appendTo(wrapper);
+                      wrapper.appendTo(this.container);
+                    },
+                    initIcon: function(){
+                      var icon = $('<img />', {
+                        src: this.marker.icon_url
+                      });
+                      icon.addClass('dashboard-panel-marker-icon');
+                      icon.appendTo(this.container);
+                    },
+                    append: function(){
+                      this.parent.markers.push(this);
+                    }
+                  });
+                  el.init();
+                }
+              });
+              el.init();
+            },
+            initPanelSelector: function(){
+              var el = this.panelSelector = {};
+              $.extend(el, {
+                parent: this,
+                root: this.root,
+                init: function(){
+                  this.initContainer();
+                },
+                initContainer: function(){
+                  this.initLabel();
+                  this.container = $('<select id="dashboard-panel-select"></select>');
+                  this.container.append('<option>selecciona una zona</option>');
+                  this.container.change(this.containerOnChange.bind(this));
+                  $.each(this.root.zones, this.addZone.bind(this));
+                  this.container.appendTo(this.parent.container);
+                },
+                containerOnChange: function(){
+                  var val = parseInt(this.container.val());
+                  if(isFinite(val) && !isNaN(val)){
+                    var zone = this.root.zones[val];
+                    if(zone){
+                      this.root.setZone(zone);
+                    }
+                  }
+                },
+                addZone: function(key, zone){
+                  var el = $('<option></option>');
+                  el.attr('value', key);
+                  el.html(zone.name);
+                  el.appendTo(this.container);
+                },
+                initLabel: function(){
+                  var label = $('<span class="dashboard-panel-label">Selecciona una zona</span>');
+                  label.appendTo(this.parent.container);
+                }
+              });
+              el.init();
+            },
+            initHideBtn: function(){
+              var el = this.$hideBtn = $('<a id="dashboard-panel-hide-button" href="#"></a>');
+              var icon = $('<span class="fa fa-close"></span>');
+              icon.appendTo(el);
+              app.click(el, this.hideBtnOnClick.bind(this));
+              el.appendTo(this.container);
+            },
+            hideBtnOnClick: function(e, element){
+              this.hide();
+            },
+            initShowBtn: function(){
+              var el = this.$showBtn = $('<a id="dashboard-panel-show" class="action_item" href="#">Zonas</a>');
+              app.click(el, this.showBtnOnClick.bind(this));
+              el.appendTo(this.root.canvas.container);
+            },
+            showBtnOnClick: function(e, element){
+              this.show();
+            },
+            hide: function(){
+              this.container.addClass('closed');
+              this.$showBtn.css('display', 'block');
+            },
+            show: function(){
+              this.container.removeClass('closed');
+              this.$showBtn.css('display', 'none');
             }
           });
           el.init();
+        },
+        initLoader: function(){
+          var el = this.loader = {};
+          $.extend(el, {
+            parent: this,
+            root: this.root,
+            init: function(){
+              this.initContainer();
+            },
+            initContainer: function(){
+              this.container = $('<div id="dashboard-loader"></div>');
+              this.initLoaderSprite();
+              this.container.appendTo(this.root.canvas.container);
+            },
+            initLoaderSprite: function(){
+              var el = $('<div id="loader-sprite"></div>');
+              el.appendTo(this.container);
+            },
+            show: function(){
+              this.container.css('display', 'block');
+            },
+            hide: function(){
+              this.container.css('display', 'none');
+            }
+          });
+          el.init();
+        },
+        loading: function(){
+          this.loader.show();
+        },
+        loaded: function(){
+          this.loader.hide();
+        },
+        setZone: function(which){
+          if(which != this.zone){
+            // TODO clear zone
+            this.zone = which;
+            this.map.updateZone();
+            this.requestZoneMarkers();
+          }
+        },
+        requestZoneMarkers: function(){
+          var url = '<%= api_app_user_marker_list_url(':ZONE:') %>';
+          url = url.replace(':ZONE:', this.zone.id);
+          this.loading();
+          $.ajax({
+            type: 'get',
+            url: url,
+            success: this.requestZoneOnSuccess.bind(this),
+            error: this.requestZoneOnError.bind(this)
+          });
+        },
+        requestZoneOnSuccess: function(response){
+          this.markers = response;
+          this.panel.setMarkers(this.markers);
+          this.loaded();
+        },
+        requestZoneOnError: function(){
+          // TODO show error
+          this.loaded();
         }
       });
       dashboard.init();
