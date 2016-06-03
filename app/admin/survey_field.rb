@@ -1,10 +1,25 @@
 ActiveAdmin.register SurveyField do
 
-  # menu
-  menu label: I18n.t('activerecord.models.survey_field.one')
+  l_base = 'activerecord.models'
 
   # associations
   belongs_to :survey
+
+  breadcrumb do
+    zone = survey.zone
+    crumbs = [
+      link_to('Admin', admin_root_path),
+      link_to(I18n.t("#{l_base}.zone.other"), admin_zones_path),
+      link_to(zone.name, admin_zone_path(zone)),
+      link_to(I18n.t("#{l_base}.survey.other"), admin_zone_surveys_path(zone)),
+      link_to(survey.name, admin_zone_survey_path(zone, survey))
+    ]
+    begin # <method>.present? throws exception instead of nil within block
+      crumbs << link_to(I18n.t("#{l_base}.survey_field.other"), admin_survey_survey_fields_path(survey)) if survey_field.present?
+    rescue
+    end
+    crumbs
+  end
 
   #config.sort_order = 'position'
   sortable sorting_attribute: :position
