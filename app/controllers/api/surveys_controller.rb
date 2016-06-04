@@ -10,6 +10,12 @@ class Api::SurveysController < Api::ApiController
     }
   end
 
+  def download
+    
+    format.csv do
+    end
+  end
+
   protected
 
   def cls

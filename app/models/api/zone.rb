@@ -28,4 +28,16 @@ class Api::Zone < Zone
     all
   end
 
+  def self.to_csv
+    attrs = %w{id name lat lng}
+    CSV.generate(headers: true) do |csv|
+      csv << attrs
+      all.each do |zone|
+        zone.surveys.each do |el|
+          csv << attrs.map{ |attr| zone.send(attr) }
+        end
+      end
+    end
+  end
+
 end
