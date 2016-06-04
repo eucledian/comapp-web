@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' %>
+    <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Cabin:400,700' %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js' %>
+    <%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' %>
+    <%= javascript_include_tag '//cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js' %>
+    <%= javascript_include_tag 'application' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Observatorio del derecho a la Vivienda | Eucledian</title>
+  </head>
+  <body>
+    <div id="home" class="slide main">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#home">Inicio</a></li>
+              <li><a href="#project">Proyecto</a></li>
+              <li><a href="#app">App Móvil</a></li>
+              <!-- TODO endpoint -->
+              <li><a href="">Descarga de Información</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row row-centered">
+          <div class="col-xs-10 col-sm-6 col-centered" id="main-logo">
+            <%= image_tag 'main-logo', alt: 'Observatorio del derecho a la vivienda' %>
+          </div>
+          <div id="main-label" class="col-xs-12 col-centered">
+            Una solución para el mapeo urbano y detección de problemas que afectan a las comunidades.
+          </div>
+          <div class="col-xs-12 col-centered" id="home-actions">
+            <a href="#project" class="btn btn-default" id="home-download-btn">
+              <span class="fa fa-arrow-down"></span>
+              Descubre el proyecto
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="project" class="slide">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 class="slide-highlight">
+              Aplicación móvil, sistema de administración y API RESTFul al alcance de todos.
+            </h2>
+          </div>
+          <div class="col-xs-12 col-sm-3">
+            <div class="slide-circle first">
+              <span class="fa fa-book"></span>
+            </div>
+            <p class="project-description">
+              Genera encuestas de manera dinámica. Soportamos diferentes tipos de campos y validaciones para dar vida a tus encuestas.
+            </p>
+          </div>
+          <div class="col-xs-12 col-sm-3">
+            <div class="slide-circle first">
+              <span class="fa fa-cloud"></span>
+            </div>
+            <p class="project-description">
+              Los encuestadores pueden trabajar sin conexión a Internet, y sincronizar cuando la conexión esté disponible.
+            </p>
+          </div>
+          <div class="col-xs-12 col-sm-3">
+            <div class="slide-circle first">
+              <span class="fa fa-map"></span>
+            </div>
+            <p class="project-description">
+              Colaborando con el proyecto, podrás mapear los indicadores de interés de tu comunidad!
+            </p>
+          </div>
+          <div class="col-xs-12 col-sm-3">
+            <div class="slide-circle first">
+              <span class="fa fa-tachometer"></span>
+            </div>
+            <p class="project-description">
+              La información recolectada puede ser recurada a través de nuestro API para poder realizar visualizaciones interactivas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="app" class="slide">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-9">
+            <h2 class="slide-highlight">
+              Descarga nuestra app!
+            </h2>
+            <p class="slide-info">
+              <span class="fa fa-check-square-o"></span>
+              Compatible con Android 4.3 (Jelly Bean o Superior).
+            </p>
+            <p class="slide-info">
+              <span class="fa fa-spinner"></span>
+              Antes de iniciar, sincroniza la información.
+            </p>
+            <p class="slide-info">
+              <span class="fa fa-rocket"></span>
+              Reporta incidencias de interés a través de nuestros marcadores.
+            </p>
+            <p class="slide-info">
+              <span class="fa fa-key"></span>
+              Contesta las encuestas oficiales para tu <strong>comunidad</strong>!
+            </p>
+            <p class="slide-info">
+              <span class="fa fa-hand-peace-o"></span>
+              Al finalizar, sincroniza nuevamente para que tus datos se reflejen.
+            </p>
+            <div id="app-download-actions">
+              <a target="_blank" href="/comapp1.0.0.apk" class="btn btn-primary" id="app-download-btn">
+                <span class="fa fa-arrow-down"></span>
+                Descargar .apk
+              </a>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-3">
+            <%= image_tag 'app.png', class: 'app-image' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer" class="slide">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            &copy; 2016 - <a target="_blank" href="http://eucledian.com">Soluciones Eucledian S.A. de C.V.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
